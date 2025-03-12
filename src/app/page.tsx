@@ -1,101 +1,19 @@
-import Image from "next/image";
+import Tiptap from '@/components/Tiptap'
+import React from 'react'
 
-export default function Home() {
+type Props = {}
+
+const page = (props: Props) => {
+
+  const page_array = ['<ol><li style="font-size:14.208333333333334px;"><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;">INTRODUCTION:</p></li><li style="font-size:14.208333333333334px;"><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"> Technology :</p></li><li style="font-size:14.208333333333334px;"><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;">Technology is rapidly transforming daily life, from artificial intelligence enhancing automation to cloud computing enabling global connectivity. Businesses leverage data analytics for smarter decision-making, while social media shapes communication. Innovations in healthcare, transportation, and education continue to evolve, improving efficiency and accessibility. The digital era fosters endless possibilities. </p><ul><li style="font-size:14.208333333333334px;"><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;">Artificial intelligence is revolutionizing industries by automating tasks, improving decision-making, and enhancing customer experiences. Machine learning models analyze vast data, enabling businesses to predict trends and personalize services. AI-powered chatbots, recommendation systems, and autonomous systems streamline operations, increasing efficiency. As AI advances, ethical considerations and responsible implementation become crucial.</p><ol><li style="font-size:14.208333333333334px;"><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;">a. With digital tools like video conferencing and cloud storage, employees collaborate seamlessly across distances. Companies benefit from reduced operational costs and a wider talent pool.</p></li></ol></li></ul><ul><li style="font-size:14.208333333333334px;"><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;">Climate change threatens ecosystems, economies, and human health. Rising temperatures lead to extreme weather, melting ice caps, and habitat loss. Green energy sources like solar and wind power help reduce carbon footprints. Governments, businesses, and individuals must act collectively, adopting sustainable practices to combat environmental degradation and ensure a livable future.</p></li></ul></li></ol><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;">Remote work has reshaped modern employment, offering flexibility and improved work-life</p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;">balance. With digital tools like video conferencing and cloud storage, employees collaborate</p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;">seamlessly across distances. Companies benefit from reduced operational costs and a wider</p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;">talent pool. However, challenges like isolation and productivity management require</p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;">innovative solutions to maintain efficiency and engagement.</p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p><ul><li style="font-size:14.208333333333334px;"><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;">Innovations in healthcare, transportation, and education continue to evolve, improving efficiency and accessibility. The digital era fosters endless possibilities.</p></li></ul><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;">Traveling broadens perspectives, exposing individuals to diverse cultures, traditions, and</p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;">landscapes. Exploring new destinations fosters personal growth, enhances creativity, and</p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;">creates unforgettable memories. Whether visiting bustling cities or serene countryside, travel</p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;">offers opportunities for adventure, learning, and relaxation. Embracing different experiences</p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;">enriches life and deepens appreciation for the world’s diversity.</p><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p><ol><li style="font-size:14.208333333333334px;"><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"> Healthy Eating: Maintaining a balanced diet is essential for overall health and well-being. Eating nutrient-rich foods like fruits, vegetables, and whole grains boosts energy and strengthens the immune system. Avoiding processed foods and excessive sugar reduces health risks. Developing healthy eating habits ensures long-term benefits, improving both physical and mental well-being.</p></li><li style="font-size:14.208333333333334px;"><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"> The Importance of Reading: Reading expands knowledge, enhances vocabulary, and improves critical thinking skills. Books transport readers to different worlds, offering new perspectives and insights. Whether fiction or nonfiction, reading stimulates creativity and deepens understanding. Developing a reading habit fosters continuous learning, making it an essential practice for personal and professional growth.</p></li><li style="font-size:14.208333333333334px;"><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"> The Role of Education: Education shapes individuals, equipping them with knowledge and skills for the future. It fosters problem-solving, creativity, and communication abilities, essential for success. Beyond academics, education promotes personal development and social awareness. A strong educational foundation empowers individuals to contribute meaningfully to society and adapt to an ever-changing world.</p></li><li style="font-size:14.208333333333334px;"><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"> The Power of Kindness: A simple act of kindness can brighten someone’s day and create a ripple effect of positivity. Whether offering a smile, helping a stranger, or listening attentively, kindness fosters compassion and strengthens relationships. Small gestures make a significant impact, reminding us that humanity thrives when we support and uplift each other.</p></li><li style="font-size:14.208333333333334px;"><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"> The Beauty of Nature: Nature’s beauty is breathtaking, from towering mountains to vast oceans. Spending time outdoors refreshes the mind, reduces stress, and improves well-being. The harmony of wildlife and landscapes inspires creativity and appreciation for the planet. Protecting nature ensures that future generations can experience its wonders and benefit from its resources.</p></li></ol><p style="font-size:14.208333333333334px;font-weight:400;font-style:normal;"></p>']
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+    <>
+    <div className='text-[11px]'>Binaya</div>
+    {/* {page_array.map((item, index) => (
+    ))} */}
+    <Tiptap content={page_array[0]}/>
+    </>
+  )
 }
+
+export default page

@@ -22,3 +22,50 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.tiptap{
+  /* List styles */
+  ul, 
+  ol {
+    padding: 0 1rem;
+    margin: 1.25rem 1rem 1.25rem 0.4rem;
+  }
+  ul >li{
+    list-style-type: disc;
+    p{
+      margin-top: 0.25rem;
+      margin-bottom: 0.25rem;
+    }
+  }
+  ol >li{
+    list-style-type: decimal;
+    p{
+      margin-top: 0.25rem;
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  /* .page-break{
+    position: absolute; 
+    left: 0; 
+    margin: 20px 0px;
+    background-color:gray; 
+    width: 100%;
+  } */
+
+  .paginated-content {
+    width: 816px; /* Or whatever width you need */
+    min-height: 1000px; /* Or a larger value to ensure scrollHeight is not 0 */
+    border: 1px solid #ccc; /* For debugging */
+  }
+  
+  .page-break-divider {
+    border: 1px solid red; /* For debugging */
+    width: 100%;
+  }
+}
+
+
+
+
+
