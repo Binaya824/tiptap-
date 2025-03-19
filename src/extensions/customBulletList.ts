@@ -10,6 +10,13 @@ const CustomBulletList = BulletList.extend({
           return attributes.style ? { style: attributes.style } : {};
         },
       },
+      "data-id": {  // Adding the dataset attribute
+        default: null,
+        parseHTML: (element) => element.getAttribute("data-id") || null,
+        renderHTML: (attributes) => {
+          return attributes["data-id"] ? { "data-id": attributes["data-id"] } : {};
+        },
+      },
     };
   },
 });

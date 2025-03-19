@@ -17,6 +17,13 @@ const CustomParagraph = Paragraph.extend({
           return attributes.class ? { class: attributes.class } : {};
         },
       },
+      "data-id": {  // Adding the dataset attribute
+        default: null,
+        parseHTML: (element) => element.getAttribute("data-id") || null,
+        renderHTML: (attributes) => {
+          return attributes["data-id"] ? { "data-id": attributes["data-id"] } : {};
+        },
+      },
     };
   },
 });
