@@ -9,7 +9,15 @@
 }
 body{
   background-color: #F9FBFD;
+  overflow: hidden;
 }
+
+/* Slim Scrollbar for WebKit Browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 6px; /* Thin scrollbar */
+  display: none;
+}
+
 .tiptap{
   /* List styles */
   box-sizing: border-box !important;

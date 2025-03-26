@@ -18,6 +18,13 @@ const CustomListItem = ListItem.extend({
           return attributes["data-id"] ? { "data-id": attributes["data-id"] } : {};
         },
       },
+      "data-page": {  // Adding the dataset attribute
+        default: null,
+        parseHTML: (element) => element.getAttribute("data-page") || null,
+        renderHTML: (attributes) => {
+          return attributes["data-page"] ? { "data-page": attributes["data-page"] } : {};
+        },
+      },
     };
   },
   renderHTML({ node }) {
