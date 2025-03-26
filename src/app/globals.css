@@ -22,20 +22,23 @@ body{
   ul >li{
     list-style-type: disc;
     
-    p{
+    /* p{
       margin-top: 0.25rem;
       margin-bottom: 0.25rem;
-    }
+    } */
   }
   ul > li:first-child:not(:has(p)) {
     list-style: none; /* Removes marker */
 }
+ol > li:first-child:not(:has(p)) {
+  list-style: none; /* Removes marker */
+}
   ol >li{
     list-style-type: decimal;
-    p{
+    /* p{
       margin-top: 0.25rem;
       margin-bottom: 0.25rem;
-    }
+    } */
   }
 
   /* .page-break{
@@ -52,10 +55,15 @@ body{
     border: 1px solid #ccc; /* For debugging */
   }
 
-  .page-break {
+  /* .page-break {
     page-break-after: always;
     width: calc(100% + 2*56px) !important;
     transform: translateX(-56px) !important;
+  } */
+
+  .page-break {
+    pointer-events: none; /* Ignores mouse clicks */
+    user-select: none; /* Prevents text selection */
   }
 }
 

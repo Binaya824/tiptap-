@@ -33,10 +33,12 @@ const CustomListItem = ListItem.extend({
     const attrs = {
       ...node.attrs,
       style: hasParagraph ? node.attrs.style : "list-style: none;",
+      "data-empty": hasParagraph ? null : "true", // Add `data-empty="true"` when no paragraph exists
     };
 
     return ["li", attrs, 0];
   },
+  
 });
 
 export default CustomListItem;

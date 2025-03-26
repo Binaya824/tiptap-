@@ -3,10 +3,10 @@ import { Node } from '@tiptap/core';
 
 const PageBreak = Node.create({
   name: 'pageBreak',
-
   group: 'block',
-
   atom: true, // This is a standalone node
+  selectable: false, // Prevents selection
+  draggable: false, // Prevents dragging
 
   addAttributes() {
     return {
@@ -64,13 +64,10 @@ const PageBreak = Node.create({
       // If height is 0, return a hidden div (instead of null, per your original code)
       if (node.attrs.height !== 0) {
         const dom = document.createElement('div');
-        dom.className = 'page-break'; // Keeping your class name
-        dom.style.top = `${node.attrs.height}px`;
-        dom.style.left = '0';
+        dom.className = 'page-break';
         dom.style.background = '#f9fbfd';
         dom.style.padding = '8px 8px';
-        dom.style.margin = "2rem 0"
-        dom.style.position = 'absolute';
+        dom.style.margin = "2rem 0";
         dom.style.border = '2px solid red';
         dom.style.zIndex = '10';
         dom.style.width = '100%';
