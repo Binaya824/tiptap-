@@ -5,11 +5,11 @@ import React, { RefObject, useEffect, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
-import { Loader2 } from "lucide-react";
+import { Loader2, Search } from "lucide-react";
 import { page_array } from "@/constants/content";
 import FileUploader from "@/components/FileUploader";
 import { motion } from "framer-motion";
-
+import { SearchDialog } from "@/components/SearchDialog";
 
 type Props = {};
 type TiptapRefType = {
@@ -39,13 +39,16 @@ const page = (props: Props) => {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
   const [htmlArray, setHtmlArray] = useState<string[]>([]);
-  const [focusedPage, setFocusedPage] = useState<number>(0)
+  const [focusedPage, setFocusedPage] = useState<number>(0);
+  const [isDialogOpen, setIsDialogOpen] = useState(true);
+  const [activeEditorIndex, setActiveEditorIndex] = useState(0);
 
   const handleSave = () => {
     console.log("Saving content...");
-    if (!leftTiptapRefs.current[focusedPage -1] || !rightTiptapRef.current) return;
+    if (!leftTiptapRefs.current[focusedPage - 1] || !rightTiptapRef.current)
+      return;
 
-    const leftEditor = leftTiptapRefs.current[focusedPage -1]?.editor; // Ensure editor instance exists
+    const leftEditor = leftTiptapRefs.current[focusedPage - 1]?.editor; // Ensure editor instance exists
     const rightEditor = rightTiptapRef.current?.editor;
     console.log("leftEditor", leftEditor.getHTML());
 
@@ -71,7 +74,6 @@ const page = (props: Props) => {
     // Extract the value if found
     const dataId = match ? match[1] : 0;
 
-    
     console.log("Replacing text of element with data-id:", dataId);
 
     const rightJSON = rightEditor.getJSON();
@@ -79,11 +81,16 @@ const page = (props: Props) => {
     // Find the specific node in rightEditor JSON with matching `data-id`
     // Collect all nodes that match a `data-id`
     let newNodesContent: any[] = [];
-    rightJSON.content.forEach((node: { attrs: { [x: string]: string | null } }) => {
-      if (node.attrs && rightElements[0].getAttribute("data-id") === node.attrs["data-id"]) {
-        newNodesContent.push(node);
+    rightJSON.content.forEach(
+      (node: { attrs: { [x: string]: string | null } }) => {
+        if (
+          node.attrs &&
+          rightElements[0].getAttribute("data-id") === node.attrs["data-id"]
+        ) {
+          newNodesContent.push(node);
+        }
       }
-    });
+    );
 
     console.log("newNodeContent))))))))))", newNodesContent);
 
@@ -129,30 +136,33 @@ const page = (props: Props) => {
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    try{
+    try {
       setLoading(true);
       console.log("submit ----->", prompt);
       const leftEditorContents = Object.values(leftTiptapRefs.current)
         .map((editorRef) => editorRef?.editor?.getHTML() || "") // Get HTML or empty string if unavailable
         .filter((html) => html.trim() !== ""); // Remove empty entries
       console.log("leftEditorContents", leftEditorContents);
-      const res = await axios.post('http://127.0.0.1:5000/api/model', {prompt , content: leftEditorContents.join('')})
-      console.log(res.data)
-      if(res.data.data.success){
-
-        const html = res.data.data.data.split('```')[1].replace('html\n', '')
+      const res = await axios.post("http://127.0.0.1:5000/api/model", {
+        prompt,
+        content: leftEditorContents.join(""),
+      });
+      console.log(res.data);
+      if (res.data.data.success) {
+        const html = res.data.data.data.split("```")[1].replace("html\n", "");
         // console.log("html ------------------>", html)
         const match = html.match(/data-page="(\d+)"/);
 
         // Extract the value if found
         const dataPage = match ? match[1] : 0;
-        setFocusedPage(parseInt(dataPage))
-        setResult(html)
+        setFocusedPage(parseInt(dataPage));
+        setResult(html);
       }
-    }catch(error){
-      console.log("error while submission", error)
-    }finally{
-      setLoading(false)
+    } catch (error) {
+      console.log("error while submission", error);
+    } finally {
+      setLoading(false);
+      setIsDialogOpen(false);
     }
   };
 
@@ -163,8 +173,7 @@ const page = (props: Props) => {
   }, [result]);
 
   useEffect(() => {
-
-    const scrollToDataPage = (targetPage:number) => {
+    const scrollToDataPage = (targetPage: number) => {
       const targetRef = Object.values(leftTiptapRefs.current).find((ref) => {
         if (ref?.editor) {
           const content = ref.editor.getHTML();
@@ -172,57 +181,47 @@ const page = (props: Props) => {
         }
         return false;
       });
-  
+
       if (targetRef) {
-        const editorDom = targetRef.editor.view.dom; 
-        const targetElement = editorDom.querySelector(`[data-page="${targetPage}"]`);
-        
+        const editorDom = targetRef.editor.view.dom;
+        const targetElement = editorDom.querySelector(
+          `[data-page="${targetPage}"]`
+        );
+
         if (targetElement) {
-          targetElement.scrollIntoView({ behavior: "smooth", block: "center" }); 
+          targetElement.scrollIntoView({ behavior: "smooth", block: "center" });
         }
       }
     };
-    scrollToDataPage(focusedPage)
-  }, [focusedPage])
-  
+    scrollToDataPage(focusedPage);
+  }, [focusedPage]);
 
-  console.log("result ++++++++++++++++", result);
+  const getActiveBlockNode = (editor) => {
+    if (!editor) return null;
+
+    const { state } = editor;
+    const { selection } = state;
+    const { $from } = selection;
+
+    const node = $from.node($from.depth);
+    return node ? node.toJSON() : null;
+};
+
+  useEffect(() => {
+    console.log("updating active editor index", activeEditorIndex);
+}, [leftTiptapRefs?.current[activeEditorIndex]?.editor]);  
+
+ // Function to handle editor clicks
+ const handleEditorClick = (index) => {
+  console.log("index ============>>>>>>>>> " , index)
+  setActiveEditorIndex(index);
+};
 
   return (
     <>
       {htmlArray.length > 0 ? (
         <>
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col gap-4 p-4 justify-center items-center"
-          >
-            <Input
-              type="text"
-              placeholder="Search"
-              onChange={(e) => setPrompt(e.target.value)}
-              autoFocus
-              className="outline-none focus:outline-0"
-            />
-            <div className="flex gap-4">
-              <Button
-                variant="secondary"
-                type="submit"
-                className="w-fit cursor-pointer"
-              >
-                {loading && <Loader2 className="animate-spin" />}
-                AI Search
-              </Button>
-
-              <Button
-                variant="secondary"
-                onClick={() => setHtmlArray([])}
-                className="w-fit cursor-pointer"
-              >
-                Upload new Doc
-              </Button>
-            </div>
-          </form>
-          <div className="flex h-[80vh] relative justify-center">
+          <div className="flex h-screen relative justify-center">
             {/* Left Tiptap: Slides Left When Result Exists */}
             <motion.div
               className="h-full overflow-y-scroll flex flex-col gap-4"
@@ -230,34 +229,56 @@ const page = (props: Props) => {
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
               {htmlArray.map((item, index) => (
+                <div
+                key={index}
+                className={`editor-container ${activeEditorIndex === index ? "active-editor" : ""}`}
+                onClick={() => handleEditorClick(index)}
+            >
                 <Tiptap
-                  key={index}
-                  content={item}
-                  ref={(el) => {
-                    leftTiptapRefs.current[index] = el;
-                  }}
-                  editable={false}
+                    content={item}
+                    ref={(el) => {
+                        leftTiptapRefs.current[index] = el;
+                    }}
+                    editable={true}
                 />
+            </div>
               ))}
             </motion.div>
 
-            {result && <motion.div
-              className="flex flex-col justify-center items-center"
-              initial={{ x: "100%" }}
-              animate={{ x: "0%" }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-            >
-              <div className="h-full overflow-y-scroll w-full">
-                <Tiptap ref={rightTiptapRef} content={result} editable={true} />
-              </div>
-              <button
-                className="bg-blue-500 h-fit w-fit text-white text-2xl p-2 rounded-md m-2 self-end"
-                onClick={handleSave}
+            {result && (
+              <motion.div
+                className="flex flex-col justify-center items-center"
+                initial={{ x: "100%" }}
+                animate={{ x: "0%" }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
               >
-                Save
-              </button>
-            </motion.div>
-            }
+                <div className="h-full overflow-y-scroll w-full">
+                  <Tiptap
+                    ref={rightTiptapRef}
+                    content={result}
+                    editable={true}
+                  />
+                </div>
+                <Button
+                 variant="secondary"
+                  className="cursor-pointer h-fit w-[90%] text-2xl p-2 rounded-md m-2"
+                  onClick={handleSave}
+                >
+                  Save
+                </Button>
+              </motion.div>
+            )}
+          </div>
+          <div className="absolute bottom-[3rem] right-[3rem]">
+            <SearchDialog
+              setHtmlArray={setHtmlArray}
+              handleSubmit={handleSubmit}
+              loading={loading}
+              setPrompt={setPrompt}
+              setResult={setResult}
+              isDialogOpen={isDialogOpen}
+              setIsDialogOpen={setIsDialogOpen}
+            />
           </div>
         </>
       ) : (

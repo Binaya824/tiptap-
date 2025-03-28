@@ -11,7 +11,7 @@ const PageEditor = () => {
     { id: 1, type: "paragraph", content: "", x: MARGIN, y: MARGIN }
   ]);
   const textAreaRef = useRef(null);
-  const canvasRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     renderDocument();
@@ -24,7 +24,7 @@ const PageEditor = () => {
 
   const splitTextIntoLines = (text, maxWidth, ctx) => {
     const words = text.split(" ");
-    let lines = [];
+    let lines: string[] = [];
     let line = "";
 
     words.forEach((word) => {
@@ -44,8 +44,8 @@ const PageEditor = () => {
   };
 
   const paginateContent = (blocks, ctx) => {
-    let pages = [];
-    let currentPage = [];
+    let pages: { id: number; type: string; content: string; x: number; y: number; lines: string[] }[][] = [];
+    let currentPage: { id: number; type: string; content: string; x: number; y: number; lines: string[] }[] = [];
     let currentHeight = MARGIN;
 
     blocks.forEach((block) => {
@@ -68,7 +68,15 @@ const PageEditor = () => {
 
   const renderDocument = () => {
     const canvas = canvasRef.current;
+    if (!canvas) {
+      console.error("Canvas element is not available.");
+      return;
+    }
     const ctx = canvas.getContext("2d");
+    if (!ctx) {
+      console.error("Failed to get 2D context.");
+      return;
+    }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.font = "16px Arial";
     ctx.fillStyle = "#000";
