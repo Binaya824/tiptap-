@@ -143,7 +143,7 @@ const page = (props: Props) => {
         .map((editorRef) => editorRef?.editor?.getHTML() || "") // Get HTML or empty string if unavailable
         .filter((html) => html.trim() !== ""); // Remove empty entries
       console.log("leftEditorContents", leftEditorContents);
-      const res = await axios.post("http://127.0.0.1:5000/api/model", {
+      const res = await axios.post("https://immune-exactly-rat.ngrok-free.app/api/model", {
         prompt,
         content: leftEditorContents.join(""),
       });
