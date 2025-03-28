@@ -239,7 +239,7 @@ const page = (props: Props) => {
                     ref={(el) => {
                         leftTiptapRefs.current[index] = el;
                     }}
-                    editable={true}
+                    editable={false}
                 />
             </div>
               ))}
